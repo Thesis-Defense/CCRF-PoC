@@ -5,11 +5,6 @@ authors = []
 telemetry = false
 cache_dir = './.cache'
 requirements = []
-[contracts.insecure]
-path = 'contracts/insecure.clar'
-clarity_version = 2
-epoch = 2.5
-
 [contracts.malicious]
 path = 'contracts/malicious.clar'
 clarity_version = 2
@@ -17,6 +12,11 @@ epoch = 2.5
 
 [contracts.timelock-wallet]
 path = 'contracts/timelock-wallet.clar'
+clarity_version = 2
+epoch = 2.5
+
+[contracts.timelock-wallet-insecure]
+path = 'contracts/timelock-wallet-insecure.clar'
 clarity_version = 2
 epoch = 2.5
 [repl.analysis]

@@ -50,18 +50,18 @@ plan:
     - id: 0
       transactions:
         - emulated-contract-publish:
-            contract-name: insecure
+            contract-name: timelock-wallet-insecure
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/insecure.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: timelock-wallet
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/timelock-wallet.clar
+            path: contracts/timelock-wallet-insecure.clar
             clarity-version: 2
         - emulated-contract-publish:
             contract-name: malicious
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/malicious.clar
+            clarity-version: 2
+        - emulated-contract-publish:
+            contract-name: timelock-wallet
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/timelock-wallet.clar
             clarity-version: 2
       epoch: "2.5"

