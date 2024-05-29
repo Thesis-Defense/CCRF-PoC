@@ -8,6 +8,7 @@
 (define-constant err-no-value (err u103))
 (define-constant err-beneficiary-only (err u104))
 (define-constant err-unlock-height-not-reached (err u105))
+(define-constant err-no-intermediary (err u106))
 
 ;; Data
 (define-data-var beneficiary (optional principal) none)
@@ -31,6 +32,7 @@
 (define-public (bestow (new-beneficiary principal))
     (begin
         (asserts! (is-eq (some tx-sender) (var-get beneficiary)) err-beneficiary-only)
+        (asserts! (is-eq  tx-sender contract-caller) err-no-intermediary )
         (var-set beneficiary (some new-beneficiary))
         (ok true)
     )

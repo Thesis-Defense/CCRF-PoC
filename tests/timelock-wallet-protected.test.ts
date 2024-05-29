@@ -12,24 +12,24 @@ describe("CCRF Exploit", () => {
     const someone_else = accounts.get("wallet_2")!;
     console.log(`Beneficiary ${beneficiary}`)
     simnet.mineBlock([
-      tx.callPublicFn("timelock-wallet", "lock", [
+      tx.callPublicFn("timelock-wallet-protected", "lock", [
         Cl.principal(beneficiary),
         Cl.uint(10),
         Cl.uint(10),
       ], deployer),
     ]);
     console.log(`Querying initial beneficiary`);
-    let initial = simnet.callReadOnlyFn("timelock-wallet", "whois-beneficiary", [], someone_else);
+    let initial = simnet.callReadOnlyFn("timelock-wallet-protected", "whois-beneficiary", [], someone_else);
     console.log(`Beneficiary is ${Cl.prettyPrint(initial.result.value)}`)
 
     console.log(`Launching the attack`);
     // here the beneficiary calls the cool-nft-airdrop function on the malicious smart contract
     simnet.mineBlock([
-      tx.callPublicFn("malicious", "cool-nft-airdrop", [
+      tx.callPublicFn("malicious", "less-cool-nft-airdrop", [
       ], beneficiary),
     ]);
     // now the beneficiary of the timelock-wallet has been updated to the attackers address
-    let pwned = simnet.callReadOnlyFn("timelock-wallet", "whois-beneficiary", [], someone_else);
+    let pwned = simnet.callReadOnlyFn("timelock-wallet-protected", "whois-beneficiary", [], someone_else);
     console.log(`Beneficiary is now ${Cl.prettyPrint(pwned.result.value)}`);
   })
 });

@@ -10,13 +10,13 @@ path = 'contracts/malicious.clar'
 clarity_version = 2
 epoch = 2.5
 
-[contracts.timelock-wallet]
-path = 'contracts/timelock-wallet.clar'
+[contracts.timelock-wallet-insecure]
+path = 'contracts/timelock-wallet-insecure.clar'
 clarity_version = 2
 epoch = 2.5
 
-[contracts.timelock-wallet-insecure]
-path = 'contracts/timelock-wallet-insecure.clar'
+[contracts.timelock-wallet-protected]
+path = 'contracts/timelock-wallet-protected.clar'
 clarity_version = 2
 epoch = 2.5
 [repl.analysis]
