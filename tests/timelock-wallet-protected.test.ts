@@ -6,7 +6,7 @@ import { describe, it } from "vitest";
 const accounts = simnet.getAccounts();
 
 describe("CCRF Exploit", () => {
-  it("allows beneficiary to bestow the right to claim to someone else", () => {
+  it("is protected from intermediary contracts", () => {
     const deployer = accounts.get("deployer")!;
     const beneficiary = accounts.get("wallet_1")!;
     const someone_else = accounts.get("wallet_2")!;
