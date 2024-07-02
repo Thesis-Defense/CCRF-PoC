@@ -4,21 +4,21 @@ This repo demonstates the CCRF attack against the [timelock-wallet](https://book
 
 ## Contents
 
-This repo is broken into two directories: contracts and tests.
+This repo is broken into two directories
 
-### contracts
+* ### /contracts
 
-**timelock-wallet-insecure.clar** - an insecure implementation that is vulnerable to attack
+    * **timelock-wallet-insecure.clar** - an insecure implementation that is vulnerable to attack
 
-**timelock-wallet-protected.clar** - a more secure implementation that restricts `contract-caller` to `tx-sender`
+    * **timelock-wallet-protected.clar** - a more secure implementation that restricts `contract-caller` to `tx-sender`
 
-**malicious.clar** - the phishing contract used in the attack
+    * **malicious.clar** - the phishing contract used in the attack
 
-### tests
+* ### /tests
 
-**timelock-wallet-insecure.test.ts** - Demonstrates the CCRF attack against timelock-wallet
+    * **timelock-wallet-insecure.test.ts** - Demonstrates the CCRF attack against timelock-wallet
 
-**timelock-wallet-protected.test.ts** - Demonstrates the protected contract blocks the attack.
+    * **timelock-wallet-protected.test.ts** - Demonstrates the protected contract blocks the attack.
 
 ## Running the PoC
 
