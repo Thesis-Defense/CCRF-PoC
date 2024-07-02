@@ -1,7 +1,7 @@
 
 import { Cl } from "@stacks/transactions";
 import { tx } from "@hirosystems/clarinet-sdk";
-import { describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 const accounts = simnet.getAccounts();
 
@@ -31,6 +31,7 @@ describe("CCRF Exploit", () => {
     // now the beneficiary of the timelock-wallet has been updated to the attackers address
     let pwned = simnet.callReadOnlyFn("timelock-wallet-protected", "whois-beneficiary", [], someone_else);
     console.log(`Beneficiary is now ${Cl.prettyPrint(pwned.result.value)}`);
+    expect(pwned.result.value).toBeSome(Cl.principal(beneficiary));
   })
 });
 
