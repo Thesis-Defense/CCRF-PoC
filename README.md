@@ -4,17 +4,35 @@ This repo demonstates the CCRF attack against the [timelock-wallet](https://book
 
 ## Contents
 
+This repo is broken into two directories: contracts and tests.
+
 ### contracts
 
-timelock-wallet-insecure.clar - an insecure implementation that is vulnerable to attack
+**timelock-wallet-insecure.clar** - an insecure implementation that is vulnerable to attack
 
-timelock-wallet-protected.clar - a more secure implementation that restricts `contract-caller` to `tx-sender`
+**timelock-wallet-protected.clar** - a more secure implementation that restricts `contract-caller` to `tx-sender`
+
+**malicious.clar** - the phishing contract used in the attack
 
 ### tests
 
-This repo uses clarinet and vitest. So to run the tests first make sure clarinet and required node modules are installed.
+**timelock-wallet-insecure.test.ts** - Demonstrates the CCRF attack against timelock-wallet
 
-To run tests:
+**timelock-wallet-protected.test.ts** - Demonstrates the protected contract blocks the attack.
+
+## Running the PoC
+
+The PoC takes the form of a unit tests. 
+
+This repo uses clarinet and vitest. Make sure [clarinet is installed](https://docs.hiro.so/stacks/clarinet/installation).
+
+Install dependencies
+
+```bash
+npm install
+```
+
+To run tests
 
 ```bash
 npm test
@@ -25,12 +43,3 @@ Optionally the path to a specific test file can be given to run only that test
 ```bash
 npm test tests/timelock-wallet-insecure.test.ts 
 ```
-
-timelock-wallet-insecure.test.ts - Demonstrates the CCRF attack against timelock-wallet
-
-timelock-wallet-protected.test.ts - Demonstrates the protected contract blocks the attack.
-
-
-
-
-
